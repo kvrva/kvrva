@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { GridBackground } from './components/GridBackground';
 import { InteractiveParticles } from './components/InteractiveParticles';
+import { Interactive3DLogo } from './components/Interactive3DLogo';
 import { TranslationProvider } from './context/TranslationContext';
 
 // Sections
@@ -43,6 +44,11 @@ const AppContent: React.FC = () => {
       {/* Dynamic Background */}
       <GridBackground />
       <InteractiveParticles />
+
+      {/* 3D Exploded Background Logo (Fixed) */}
+      <div className="fixed top-[45%] sm:top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] -z-10 pointer-events-none select-none opacity-20 dark:opacity-10 flex items-center justify-center">
+        <Interactive3DLogo />
+      </div>
 
       {/* Main sticky navigation */}
       <Navbar theme={theme} toggleTheme={toggleTheme} />

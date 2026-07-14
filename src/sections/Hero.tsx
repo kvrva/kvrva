@@ -2,7 +2,6 @@ import React from 'react';
 import { ArrowRight, Sparkles, Code, Terminal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CodeSnippet } from '../components/CodeSnippet';
-import { Interactive3DLogo } from '../components/Interactive3DLogo';
 import { useTranslation } from '../context/TranslationContext';
 
 export const Hero: React.FC = () => {
@@ -12,11 +11,6 @@ export const Hero: React.FC = () => {
     <section className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-center pt-20 pb-16 px-6 overflow-hidden">
       {/* Decorative gradient radial overlay */}
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[350px] bg-gradient-to-r from-accent-primary/20 via-accent-secondary/20 to-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Interactive 3D Exploded Background Logo */}
-      <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] -z-10 pointer-events-none select-none opacity-25 dark:opacity-15 flex items-center justify-center">
-        <Interactive3DLogo />
-      </div>
 
       {/* Main container */}
       <div className="w-full max-w-5xl mx-auto text-center z-10 flex flex-col items-center">
