@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { GridBackground } from './components/GridBackground';
+import { InteractiveParticles } from './components/InteractiveParticles';
 import { TranslationProvider } from './context/TranslationContext';
 
 // Sections
@@ -41,6 +42,7 @@ const AppContent: React.FC = () => {
     <div className="relative min-h-screen selection:bg-accent-primary/30 selection:text-text-primary text-text-primary bg-bg-primary overflow-x-hidden font-sans">
       {/* Dynamic Background */}
       <GridBackground />
+      <InteractiveParticles />
 
       {/* Main sticky navigation */}
       <Navbar theme={theme} toggleTheme={toggleTheme} />
