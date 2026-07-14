@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 export const Interactive3DLogo: React.FC = () => {
@@ -9,66 +9,73 @@ export const Interactive3DLogo: React.FC = () => {
   const mouseY = useMotionValue(0);
 
   // Springs for smooth fluid animations
-  const springConfig = { stiffness: 120, damping: 15, mass: 0.8 };
+  const springConfig = { stiffness: 80, damping: 20, mass: 1 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  // Transform coordinates into 3D rotations
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], [25, -25]);
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-25, 25]);
+  // Increased rotation sensitivity (extends to -45 / 45 degrees)
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [45, -45]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-45, 45]);
 
-  // Translate Z-axis layers based on hover state
-  const backLayerZ = useSpring(hovered ? -45 : 0, springConfig);
+  // Increased translation Z-axis depth for exploded view disassembly
+  const backLayerZ = useSpring(hovered ? -80 : 0, springConfig);
   const middleLayerZ = useSpring(0, springConfig);
-  const frontLayerZ = useSpring(hovered ? 45 : 0, springConfig);
+  const frontLayerZ = useSpring(hovered ? 80 : 0, springConfig);
 
   // Glow intensities on hover
-  const glowOpacity = useSpring(hovered ? 0.8 : 0.2, springConfig);
-  const scale = useSpring(hovered ? 1.08 : 1, springConfig);
+  const glowOpacity = useSpring(hovered ? 0.75 : 0.15, springConfig);
+  const scale = useSpring(hovered ? 1.05 : 0.95, springConfig);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    
-    // Normalized position from -0.5 to 0.5 relative to the center of the card
-    const relativeX = (e.clientX - rect.left) / width - 0.5;
-    const relativeY = (e.clientY - rect.top) / height - 0.5;
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Normalized position from -0.5 to 0.5 relative to the screen center
+      const relativeX = e.clientX / width - 0.5;
+      const relativeY = e.clientY / height - 0.5;
 
-    mouseX.set(relativeX);
-    mouseY.set(relativeY);
-  };
+      mouseX.set(relativeX);
+      mouseY.set(relativeY);
+      setHovered(true); // Keep exploded view active when mouse is on screen
+    };
 
-  const handleMouseLeave = () => {
-    setHovered(false);
-    mouseX.set(0);
-    mouseY.set(0);
-  };
+    const handleMouseLeave = () => {
+      setHovered(false);
+      mouseX.set(0);
+      mouseY.set(0);
+    };
+
+    window.addEventListener('mousemove', handleGlobalMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [mouseX, mouseY]);
 
   return (
     <div 
-      className="flex items-center justify-center py-6 select-none cursor-grab active:cursor-grabbing"
-      style={{ perspective: 1000 }}
+      className="flex items-center justify-center select-none w-full h-full"
+      style={{ perspective: 1200 }}
     >
       <motion.div
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={handleMouseLeave}
         style={{
           rotateX,
           rotateY,
           scale,
           transformStyle: 'preserve-3d',
         }}
-        className="relative w-32 h-32 flex items-center justify-center transition-shadow duration-300"
+        className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[420px] md:h-[420px] flex items-center justify-center"
       >
         {/* Glow Shadow Backdrop */}
         <motion.div 
           style={{
             opacity: glowOpacity,
-            transform: 'translateZ(-60px)',
+            transform: 'translateZ(-100px)',
           }}
-          className="absolute inset-0 bg-accent-primary/20 rounded-full blur-[40px] pointer-events-none"
+          className="absolute inset-0 bg-accent-primary/25 rounded-full blur-[80px] pointer-events-none"
         />
 
         {/* 1. BACK LAYER: Ambient Glow Outline (Pushed back on hover) */}
@@ -81,10 +88,10 @@ export const Interactive3DLogo: React.FC = () => {
         >
           <svg
             viewBox="0 0 24 24"
-            className="w-24 h-24 text-accent-primary/40 filter blur-[6px] transition-colors duration-300"
+            className="w-48 h-48 sm:w-64 sm:h-64 md:w-[320px] md:h-[320px] text-accent-primary/30 filter blur-[8px]"
             fill="none"
             stroke="currentColor"
-            strokeWidth="3.5"
+            strokeWidth="3.0"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
@@ -102,10 +109,10 @@ export const Interactive3DLogo: React.FC = () => {
         >
           <svg
             viewBox="0 0 24 24"
-            className="w-24 h-24 text-accent-secondary drop-shadow-[0_0_12px_rgba(168,85,247,0.4)] transition-colors duration-300"
+            className="w-48 h-48 sm:w-64 sm:h-64 md:w-[320px] md:h-[320px] text-accent-secondary drop-shadow-[0_0_20px_rgba(168,85,247,0.35)]"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.8"
+            strokeWidth="2.2"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
@@ -121,14 +128,13 @@ export const Interactive3DLogo: React.FC = () => {
           }}
           className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none"
         >
-          {/* Subtle reflection overlay inside the front path */}
-          <div className="relative w-24 h-24 flex items-center justify-center">
+          <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-[320px] md:h-[320px] flex items-center justify-center">
             <svg
               viewBox="0 0 24 24"
-              className="w-full h-full text-text-primary drop-shadow-[0_4px_10px_rgba(255,255,255,0.15)] transition-colors duration-300"
+              className="w-full h-full text-text-primary/70 drop-shadow-[0_8px_20px_rgba(255,255,255,0.1)]"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2.5"
+              strokeWidth="2.0"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -143,35 +149,35 @@ export const Interactive3DLogo: React.FC = () => {
             {/* Top Loop Node */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.8, scale: 1 }}
+              animate={{ opacity: 0.7, scale: 1 }}
               style={{
-                x: 18,
-                y: -30,
-                z: 25,
+                x: 35,
+                y: -65,
+                z: 50,
               }}
-              className="absolute w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] pointer-events-none"
+              className="absolute w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] pointer-events-none"
             />
             {/* Bottom Left Node */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.8, scale: 1 }}
+              animate={{ opacity: 0.7, scale: 1 }}
               style={{
-                x: -38,
-                y: 28,
-                z: -20,
+                x: -75,
+                y: 55,
+                z: -40,
               }}
-              className="absolute w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_#c084fc] pointer-events-none"
+              className="absolute w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_10px_#c084fc] pointer-events-none"
             />
             {/* Center Crossing Node */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.8, scale: 1 }}
+              animate={{ opacity: 0.7, scale: 1 }}
               style={{
-                x: 14,
-                y: 12,
-                z: 15,
+                x: 28,
+                y: 25,
+                z: 30,
               }}
-              className="absolute w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_#ffffff] pointer-events-none"
+              className="absolute w-2 h-2 rounded-full bg-white shadow-[0_0_10px_#ffffff] pointer-events-none"
             />
           </>
         )}

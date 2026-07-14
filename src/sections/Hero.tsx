@@ -13,10 +13,13 @@ export const Hero: React.FC = () => {
       {/* Decorative gradient radial overlay */}
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[350px] bg-gradient-to-r from-accent-primary/20 via-accent-secondary/20 to-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
+      {/* Interactive 3D Exploded Background Logo */}
+      <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] -z-10 pointer-events-none select-none opacity-25 dark:opacity-15 flex items-center justify-center">
+        <Interactive3DLogo />
+      </div>
+
       {/* Main container */}
       <div className="w-full max-w-5xl mx-auto text-center z-10 flex flex-col items-center">
-        {/* Interactive 3D Exploded Logo */}
-        <Interactive3DLogo />
 
         {/* Modern floating pill */}
         <motion.div 
