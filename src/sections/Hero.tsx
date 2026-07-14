@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Sparkles, Code, Terminal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CodeSnippet } from '../components/CodeSnippet';
+import { Interactive3DLogo } from '../components/Interactive3DLogo';
 import { useTranslation } from '../context/TranslationContext';
 
 export const Hero: React.FC = () => {
@@ -14,6 +15,9 @@ export const Hero: React.FC = () => {
 
       {/* Main container */}
       <div className="w-full max-w-5xl mx-auto text-center z-10 flex flex-col items-center">
+        {/* Interactive 3D Exploded Logo */}
+        <Interactive3DLogo />
+
         {/* Modern floating pill */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
