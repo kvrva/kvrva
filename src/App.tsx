@@ -46,7 +46,10 @@ const AppContent: React.FC = () => {
       <InteractiveParticles />
 
       {/* 3D Exploded Background Logo (Fixed) */}
-      <div className="fixed top-[45%] sm:top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] -z-10 pointer-events-none select-none opacity-20 dark:opacity-10 flex items-center justify-center">
+      <div 
+        style={{ zIndex: -2 }}
+        className="fixed top-[45%] sm:top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] pointer-events-none select-none opacity-20 dark:opacity-10 flex items-center justify-center"
+      >
         <Interactive3DLogo />
       </div>
 
