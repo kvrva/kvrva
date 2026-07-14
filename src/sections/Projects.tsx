@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ExternalLink } from 'lucide-react';
 import { useTranslation } from '../context/TranslationContext';
 
 interface Project {
@@ -9,10 +10,11 @@ interface Project {
   tags: string[];
   illustration: React.ReactNode;
   themeColor: string; // Tailwind accent border/text
+  link?: string; // Optional link to live site
 }
 
 export const Projects: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const projects: Project[] = [
     {
@@ -20,6 +22,7 @@ export const Projects: React.FC = () => {
       subtitle: t('projects.veerlow.subtitle'),
       description: t('projects.veerlow.desc'),
       tags: ['FastAPI', 'React', 'Flutter', 'PostgreSQL', 'Docker', 'WebSockets'],
+      link: 'https://veerlow.com',
       themeColor: 'group-hover:border-cyan-500/30 shadow-cyan-500/5 hover:shadow-cyan-500/10',
       illustration: (
         <div className="w-full h-full relative overflow-hidden rounded-xl bg-slate-950 flex items-center justify-center p-6 border border-white/5">
@@ -250,16 +253,32 @@ export const Projects: React.FC = () => {
                   {project.description}
                 </p>
 
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-2.5 pt-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-xs font-mono font-medium rounded-full bg-bg-secondary text-text-secondary border border-border-primary"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                {/* Tech tags & Link */}
+                <div className="space-y-4 pt-2">
+                  <div className="flex flex-wrap gap-2.5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-xs font-mono font-medium rounded-full bg-bg-secondary text-text-secondary border border-border-primary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {project.link && (
+                    <div className="pt-1">
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-bg-secondary hover:bg-bg-tertiary border border-border-primary text-text-primary hover:text-accent-primary text-xs font-medium transition-all cursor-pointer shadow-xs"
+                      >
+                        <span>{language === 'en' ? 'Visit Project' : 'Visitar Proyecto'}</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
