@@ -40,7 +40,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen selection:bg-accent-primary/30 selection:text-text-primary text-text-primary bg-bg-primary overflow-x-hidden font-sans">
+    <div className="relative isolate min-h-screen selection:bg-accent-primary/30 selection:text-text-primary text-text-primary bg-bg-primary overflow-x-hidden font-sans">
       {/* Dynamic Background */}
       <GridBackground />
       <InteractiveParticles />
@@ -48,7 +48,7 @@ const AppContent: React.FC = () => {
       {/* 3D Exploded Background Logo (Fixed) */}
       <div 
         style={{ zIndex: -2 }}
-        className="fixed top-[45%] sm:top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] pointer-events-none select-none opacity-20 dark:opacity-10 flex items-center justify-center"
+        className="fixed top-[45%] sm:top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] pointer-events-none select-none opacity-40 dark:opacity-25 flex items-center justify-center"
       >
         <Interactive3DLogo />
       </div>
