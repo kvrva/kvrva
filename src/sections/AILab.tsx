@@ -242,6 +242,16 @@ export const AILab: React.FC = () => {
                 : 'Integración Opcional:\n  - Canalización de LLM de voz a texto para convertir el audio de consultas en notas resumen formateadas para el historial clínico.',
               hours: '55 - 75 hours'
             });
+          } else if (text.includes('panad') || text.includes('pasteler') || text.includes('bakery') || text.includes('restaur') || text.includes('food') || text.includes('comid') || text.includes('alimen')) {
+            setGeneratedArch({
+              db: 'Tables:\n  - inventory_items (id, name, stock_qty, unit_measure)\n  - recipe_ingredients (id, recipe_id, ingredient_id, quantity)\n  - production_batches (id, recipe_id, scheduled_time, status)\n  - store_sales (id, total_amount, payment_method)',
+              fe: 'Views & Components:\n  - Real-Time Recipe & Batch Planner\n  - POS Checkout Screen (touch-screen layout)\n  - Low Stock Alerts & Inventory Dashboard',
+              be: 'API Endpoints:\n  - POST /api/v1/production/start-batch\n  - GET /api/v1/inventory/low-stock\n  - POST /api/v1/sales/checkout',
+              ai: language === 'en'
+                ? 'Optional Integration:\n  - AI demand predictor that analyzes historical sales and weather forecasts to suggest daily baking production quantities.'
+                : 'Integración Opcional:\n  - Predictor de demanda con IA que analiza ventas históricas y pronósticos del clima para sugerir cantidades diarias de horneado.',
+              hours: '40 - 55 hours'
+            });
           } else {
             // Default SaaS / CRM
             setGeneratedArch({
