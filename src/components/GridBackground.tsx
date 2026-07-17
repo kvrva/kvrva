@@ -12,6 +12,15 @@ export const GridBackground: React.FC = () => {
         }}
       />
 
+      {/* Refokus-style Vertical Neon Lines */}
+      <div className="absolute inset-x-6 sm:inset-x-12 md:inset-x-20 inset-y-0 flex justify-between pointer-events-none opacity-[0.08] dark:opacity-[0.05]">
+        <div className="w-[1px] h-full bg-linear-to-b from-purple-500/50 via-indigo-500/20 to-transparent" />
+        <div className="w-[1px] h-full bg-linear-to-b from-purple-500/50 via-indigo-500/20 to-transparent hidden sm:block" />
+        <div className="w-[1px] h-full bg-linear-to-b from-purple-500/50 via-indigo-500/20 to-transparent hidden md:block" />
+        <div className="w-[1px] h-full bg-linear-to-b from-purple-500/50 via-indigo-500/20 to-transparent hidden lg:block" />
+        <div className="w-[1px] h-full bg-linear-to-b from-purple-500/50 via-indigo-500/20 to-transparent" />
+      </div>
+
       {/* Floating Glowing Orbs */}
       <div className="absolute top-[10%] left-[10%] w-[300px] h-[300px] rounded-full bg-accent-primary opacity-20 dark:opacity-10 blur-[80px] animate-float" />
       <div className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] rounded-full bg-accent-secondary opacity-20 dark:opacity-10 blur-[90px] animate-float-reverse" />

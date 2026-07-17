@@ -3,13 +3,13 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { GridBackground } from './components/GridBackground';
 import { InteractiveParticles } from './components/InteractiveParticles';
-import { Interactive3DLogo } from './components/Interactive3DLogo';
 import { TranslationProvider } from './context/TranslationContext';
 
 // Sections
 import { Hero } from './sections/Hero';
 import { Trust } from './sections/Trust';
 import { Services } from './sections/Services';
+import { AILab } from './sections/AILab';
 import { Projects } from './sections/Projects';
 import { Process } from './sections/Process';
 import { WhyUs } from './sections/WhyUs';
@@ -45,14 +45,6 @@ const AppContent: React.FC = () => {
       <GridBackground />
       <InteractiveParticles />
 
-      {/* 3D Exploded Background Logo (Fixed) */}
-      <div 
-        style={{ zIndex: -2 }}
-        className="fixed top-[45%] sm:top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg md:max-w-[800px] h-[350px] sm:h-[450px] pointer-events-none select-none opacity-40 dark:opacity-25 flex items-center justify-center"
-      >
-        <Interactive3DLogo />
-      </div>
-
       {/* Main sticky navigation */}
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
@@ -61,6 +53,7 @@ const AppContent: React.FC = () => {
         <Hero />
         <Trust />
         <Services />
+        <AILab />
         <Projects />
         <Process />
         <WhyUs />
