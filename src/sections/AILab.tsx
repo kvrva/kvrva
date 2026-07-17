@@ -31,7 +31,7 @@ export const AILab: React.FC = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
   
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Tab 2: step-by-step Agent consultation State
   const [consultationStep, setConsultationStep] = useState<number>(0); 
@@ -105,9 +105,11 @@ export const AILab: React.FC = () => {
     };
   }, []);
 
-  // Auto-scroll chat
+  // Auto-scroll chat internally within the container (prevents body window scrolls)
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isTyping]);
 
   // Tab 1 chatbot handler
@@ -709,7 +711,7 @@ ${generatedArch.be}`;
                   </div>
 
                   {/* Chat message list area */}
-                  <div className="flex-1 overflow-y-auto max-h-[260px] pr-2 flex flex-col gap-4">
+                  <div ref={chatContainerRef} className="flex-1 overflow-y-auto max-h-[260px] pr-2 flex flex-col gap-4">
                     {messages.map((msg, i) => (
                       <div 
                         key={i} 
@@ -739,7 +741,6 @@ ${generatedArch.be}`;
                         <span className="w-2 h-2 rounded-full bg-accent-primary/60 animate-bounce" style={{ animationDelay: '300ms' }} />
                       </div>
                     )}
-                    <div ref={chatEndRef} />
                   </div>
 
                   {/* Suggestion questions and text input */}
