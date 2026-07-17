@@ -65,14 +65,27 @@ export const AILab: React.FC = () => {
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = language === 'es' ? 'es-ES' : 'en-US';
     
+    // Softer and friendlier settings
+    utterance.pitch = 1.12; // slightly higher pitch to sound more conversational and less robotic/scary
+    utterance.rate = 0.95;  // slightly slower pace for clearer comprehension
+    
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
     
     const voices = window.speechSynthesis.getVoices();
     const matches = voices.filter(v => v.lang.startsWith(language === 'es' ? 'es' : 'en'));
+    
     if (matches.length > 0) {
-      utterance.voice = matches[0];
+      // Prioritize natural or premium sounding voices
+      const premiumVoice = matches.find(v => 
+        v.name.toLowerCase().includes('google') || 
+        v.name.toLowerCase().includes('natural') || 
+        v.name.toLowerCase().includes('samantha') || 
+        v.name.toLowerCase().includes('helena') || 
+        v.name.toLowerCase().includes('paulina')
+      );
+      utterance.voice = premiumVoice || matches[0];
     }
     
     window.speechSynthesis.speak(utterance);

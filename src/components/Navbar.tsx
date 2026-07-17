@@ -107,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute top-20 left-0 right-0 w-full glass border-b border-border-primary shadow-2xl z-40 overflow-hidden"
+            className="absolute top-20 left-0 right-0 w-full bg-bg-primary/95 backdrop-blur-xl border-b border-border-primary shadow-2xl z-40 overflow-hidden"
           >
             <div className="max-w-7xl mx-auto px-6 py-10 md:py-14 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
               
