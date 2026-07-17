@@ -252,6 +252,26 @@ export const AILab: React.FC = () => {
                 : 'Integración Opcional:\n  - Predictor de demanda con IA que analiza ventas históricas y pronósticos del clima para sugerir cantidades diarias de horneado.',
               hours: '40 - 55 hours'
             });
+          } else if (text.includes('auto') || text.includes('vehicul') || text.includes('car') || text.includes('dealership') || text.includes('concesionar') || text.includes('moto')) {
+            setGeneratedArch({
+              db: 'Tables:\n  - vehicles_inventory (id, brand, model, year, price, status)\n  - sales_deals (id, vehicle_id, client_id, price_closed, payment_method)\n  - test_drives (id, customer_name, vehicle_id, date, feedback_rating)',
+              fe: 'Views & Components:\n  - Vehicle Catalog Dashboard (with advanced filter toggles)\n  - Deal Pipeline Tracker (sales stages & finance options)\n  - Test Drive Booking Calendar',
+              be: 'API Endpoints:\n  - POST /api/v1/vehicles/register (register new inventory vehicle)\n  - GET /api/v1/deals/pipeline (fetch sales deal states)\n  - POST /api/v1/test-drives/schedule (book test drive date)',
+              ai: language === 'en'
+                ? 'Optional Integration:\n  - Computer vision module that scans car photos to detect paint scratches and dents automatically during vehicle trade-in checkups.'
+                : 'Integración Opcional:\n  - Módulo de visión artificial que escanea fotos de autos para detectar rayones y abolladuras automáticamente en las tasaciones.',
+              hours: '50 - 70 hours'
+            });
+          } else if (text.includes('hotel') || text.includes('hostal') || text.includes('habitac') || text.includes('booking') || text.includes('reserv') || text.includes('room')) {
+            setGeneratedArch({
+              db: 'Tables:\n  - rooms (id, room_number, type, price_per_night, status)\n  - bookings (id, guest_name, room_id, check_in, check_out, status)\n  - billing_records (id, booking_id, amount, status)',
+              fe: 'Views & Components:\n  - Interactive Room Grid (live occupancy status visual board)\n  - Guest Booking & Check-in Wizard\n  - Housekeeping chore list & Status Dashboard',
+              be: 'API Endpoints:\n  - POST /api/v1/bookings/create (make room reservation)\n  - GET /api/v1/rooms/occupancy (check live rooms booking list)\n  - PUT /api/v1/housekeeping/status (update clean status of room)',
+              ai: language === 'en'
+                ? 'Optional Integration:\n  - RAG chatbot widget that answers guest queries about check-in rules, parking, and amenities based on internal PDF manuals.'
+                : 'Integración Opcional:\n  - Widget de chatbot RAG que responde consultas de huéspedes sobre reglas de check-in, estacionamiento y servicios.',
+              hours: '45 - 60 hours'
+            });
           } else {
             // Default SaaS / CRM
             setGeneratedArch({
