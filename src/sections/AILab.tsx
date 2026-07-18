@@ -31,6 +31,10 @@ export const AILab: React.FC = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
   
+  // Gemini Live API Key configuration
+  const [customApiKey, setCustomApiKey] = useState<string>(() => localStorage.getItem('kvrva_gemini_key') || '');
+  const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
+  
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Tab 2: step-by-step Agent consultation State
@@ -112,8 +116,59 @@ export const AILab: React.FC = () => {
     }
   }, [messages, isTyping]);
 
+  // Google Gemini API caller method
+  const callGeminiAPI = async (userMessage: string, chatHistory: Message[], apiKey: string): Promise<string> => {
+    // We use gemini-1.5-flash which has a generous free tier for developers
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    
+    // Map chat history (excluding loading state if any) to Gemini payload format
+    const contents = chatHistory
+      .filter(msg => msg.text.trim().length > 0)
+      .map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }]
+      }));
+    
+    // Append current message
+    contents.push({
+      role: 'user',
+      parts: [{ text: userMessage }]
+    });
+
+    const systemPrompt = language === 'es'
+      ? "Eres el asistente inteligente de KVRVA, un estudio premium de ingeniería de software fundado por Julián Martínez. Ofrecemos desarrollo de software a medida, APIs de alto rendimiento (FastAPI, NestJS), plataformas SaaS e integraciones de IA. Responde de manera concisa (máximo 3 párrafos), profesional, amable y en español. Si te preguntan sobre costos, menciona que pueden cotizar un rango de 40 a 80 horas de desarrollo en la pestaña 'Generador de Requerimientos'."
+      : "You are the intelligent assistant for KVRVA, a premium software engineering studio founded by Julián Martínez. We offer custom software development, high-performance APIs (FastAPI, NestJS), SaaS platforms, and AI integrations. Answer concisely (max 3 paragraphs), professionally, friendly, and in English. If asked about pricing, mention that they can estimate a range of 40 to 80 development hours in the 'Requirements Generator' tab.";
+
+    const payload = {
+      contents,
+      systemInstruction: {
+        parts: [{ text: systemPrompt }]
+      },
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 500
+      }
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const errData = await response.json();
+      throw new Error(errData?.error?.message || 'Error communicating with Gemini');
+    }
+
+    const data = await response.json();
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  };
+
   // Tab 1 chatbot handler
-  const handleSendChat = (text: string) => {
+  const handleSendChat = async (text: string) => {
     if (!text.trim() || isTyping) return;
     
     // Cancel voice on new query input
@@ -126,93 +181,165 @@ export const AILab: React.FC = () => {
     setActiveRag(null);
     setActiveTool(null);
 
-    // Simulate AI response logic
-    setTimeout(() => {
-      let reply = '';
-      let ragData = null;
-      let toolData = null;
+    // Check if real Google Gemini Key is set in environment or custom local storage
+    const activeKey = import.meta.env.VITE_GEMINI_API_KEY || customApiKey || '';
 
-      const lowerText = userMsg.toLowerCase();
+    if (activeKey) {
+      try {
+        const responseText = await callGeminiAPI(userMsg, messages, activeKey);
+        setIsTyping(false);
 
-      if (lowerText.includes('stack') || lowerText.includes('tecnolog') || lowerText.includes('backend') || lowerText.includes('1') || lowerText.includes('pila')) {
-        reply = language === 'en' 
-          ? 'KVRVA develops backends primarily with Python (FastAPI) and TypeScript (NestJS). We design database schemas on PostgreSQL and MongoDB, and deploy our services using Docker and Kubernetes on AWS or GCP.'
-          : 'KVRVA desarrolla backends principalmente con Python (FastAPI) y TypeScript (NestJS). Diseñamos esquemas de bases de datos en PostgreSQL y MongoDB, y desplegamos servicios utilizando Docker y Kubernetes en AWS o GCP.';
-        
-        ragData = {
-          active: true,
-          file: 'Tecnologias.pdf',
-          text: language === 'en'
-            ? 'KVRVA standard tech stack: Python (FastAPI) for data/AI models, NestJS for enterprise microservices, Docker for application containerization.'
-            : 'Stack tecnológico estándar de KVRVA: Python (FastAPI) para modelos de datos/IA, NestJS para microservicios empresariales, Docker para contenerización.',
-          score: 0.98
-        };
-      } else if (lowerText.includes('cost') || lowerText.includes('presupuesto') || lowerText.includes('preci') || lowerText.includes('2') || lowerText.includes('crm') || lowerText.includes('saas')) {
-        reply = language === 'en'
-          ? 'Based on our budget calculator tool, a custom SaaS CRM or business platform generally estimates between 40 to 80 hours of engineering (around $3,000 to $6,000 USD) for a clean, production-ready initial release.'
-          : 'Según nuestra herramienta de cálculo de presupuestos, un CRM SaaS o plataforma de negocios a medida estima generalmente entre 40 y 80 horas de ingeniería (aproximadamente $3,000 a $6,000 USD) para un lanzamiento inicial limpio y listo para producción.';
-        
-        toolData = {
-          active: true,
-          func: 'calcular_presupuesto',
-          args: JSON.stringify({ tipo: 'SaaS CRM', usuarios: 500, db: 'PostgreSQL', securityLevel: 'High' }, null, 2),
-          ret: JSON.stringify({ horasEstimadas: '50-70 horas', rangoCostoUsd: '$3,500 - $5,500', backend: 'FastAPI', deployment: 'Docker/AWS' }, null, 2)
-        };
-      } else if (lowerText.includes('sap') || lowerText.includes('erp') || lowerText.includes('integrac') || lowerText.includes('3') || lowerText.includes('sistema')) {
-        reply = language === 'en'
-          ? 'We develop secure middleware pipelines that connect custom software with ERPs like SAP. This allows real-time synchronization of transactions, inventory data, and client databases via automated endpoints.'
-          : 'Desarrollamos tuberías de middleware seguras que conectan el software a medida con ERPs como SAP. Esto permite la sincronización en tiempo real de transacciones, datos de inventario y bases de datos de clientes mediante endpoints automatizados.';
-        
-        ragData = {
-          active: true,
-          file: 'IntegracionesERP.pdf',
-          text: language === 'en'
-            ? 'Middleware architecture connects custom REST APIs to SAP NetWeaver SOAP/REST endpoints with automated failover queues.'
-            : 'La arquitectura middleware conecta APIs REST personalizadas a endpoints SOAP/REST de SAP NetWeaver con colas de contingencia automatizadas.',
-          score: 0.94
-        };
-      } else {
-        reply = language === 'en'
-          ? 'Excellent question! At KVRVA, we design custom database architectures, develop high-performance APIs, and integrate LLM features (such as semantic search and data classification). Feel free to describe your specific project idea in the next tab to generate a complete software architecture proposal!'
-          : '¡Excelente pregunta! En KVRVA diseñamos arquitecturas de bases de datos a medida, desarrollamos APIs de alto rendimiento e integramos funcionalidades de LLM (como búsqueda semántica y clasificación de datos). ¡Siéntete libre de describir tu proyecto en la siguiente pestaña para generar una propuesta de arquitectura de software!';
-      }
-
-      setIsTyping(false);
-      
-      // Activate animations for panels
-      if (ragData) setActiveRag(ragData);
-      if (toolData) setActiveTool(toolData);
-
-      // Stream response word-by-word
-      const words = reply.split(' ');
-      let currentWordIndex = 0;
-      let currentText = '';
-
-      setMessages(prev => [...prev, { sender: 'assistant', text: '', isStreaming: true }]);
-
-      const interval = setInterval(() => {
-        if (currentWordIndex < words.length) {
-          currentText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex];
-          setMessages(prev => {
-            const next = [...prev];
-            next[next.length - 1] = { sender: 'assistant', text: currentText, isStreaming: true };
-            return next;
+        // Map mockup console visualization cues based on message keywords to keep layout alive
+        const lowerMsg = userMsg.toLowerCase();
+        if (lowerMsg.includes('stack') || lowerMsg.includes('tecnolog') || lowerMsg.includes('backend') || lowerMsg.includes('pila')) {
+          setActiveRag({
+            active: true,
+            file: 'Tecnologias.pdf',
+            text: language === 'en'
+              ? 'KVRVA standard tech stack: Python (FastAPI) for data/AI models, NestJS for enterprise microservices, Docker for application containerization.'
+              : 'Stack tecnológico estándar de KVRVA: Python (FastAPI) para modelos de datos/IA, NestJS para microservicios empresariales, Docker para contenerización.',
+            score: 0.98
           });
-          currentWordIndex++;
-        } else {
-          clearInterval(interval);
-          setMessages(prev => {
-            const next = [...prev];
-            next[next.length - 1] = { sender: 'assistant', text: currentText };
-            return next;
+        } else if (lowerMsg.includes('sap') || lowerMsg.includes('erp') || lowerMsg.includes('integrac')) {
+          setActiveRag({
+            active: true,
+            file: 'IntegracionesERP.pdf',
+            text: language === 'en'
+              ? 'Middleware architecture connects custom REST APIs to SAP NetWeaver SOAP/REST endpoints with automated failover queues.'
+              : 'La arquitectura middleware conecta APIs REST personalizadas a endpoints SOAP/REST de SAP NetWeaver con colas de contingencia automatizadas.',
+            score: 0.94
           });
-          
-          // TTS call when streaming finishes and voice is unmuted
-          speakText(currentText);
+        } else if (lowerMsg.includes('cost') || lowerMsg.includes('presupuesto') || lowerMsg.includes('preci') || lowerMsg.includes('crm') || lowerMsg.includes('saas')) {
+          setActiveTool({
+            active: true,
+            func: 'calcular_presupuesto',
+            args: JSON.stringify({ tipo: 'Custom SaaS', usuarios: 500, db: 'PostgreSQL', securityLevel: 'High' }, null, 2),
+            ret: JSON.stringify({ horasEstimadas: '50-70 horas', rangoCostoUsd: '$3,500 - $5,500', backend: 'FastAPI', deployment: 'Docker/AWS' }, null, 2)
+          });
         }
-      }, 50);
 
-    }, 1000);
+        // Stream real response word-by-word
+        const words = responseText.split(' ');
+        let currentWordIndex = 0;
+        let currentText = '';
+
+        setMessages(prev => [...prev, { sender: 'assistant', text: '', isStreaming: true }]);
+
+        const interval = setInterval(() => {
+          if (currentWordIndex < words.length) {
+            currentText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex];
+            setMessages(prev => {
+              const next = [...prev];
+              next[next.length - 1] = { sender: 'assistant', text: currentText, isStreaming: true };
+              return next;
+            });
+            currentWordIndex++;
+          } else {
+            clearInterval(interval);
+            setMessages(prev => {
+              const next = [...prev];
+              next[next.length - 1] = { sender: 'assistant', text: currentText };
+              return next;
+            });
+            speakText(currentText);
+          }
+        }, 40);
+
+      } catch (err: any) {
+        setIsTyping(false);
+        const errMsg = language === 'en'
+          ? `Gemini API connection error: ${err.message || 'Unknown error'}. Falling back to simulation mode.`
+          : `Error de conexión con la API de Gemini: ${err.message || 'Error desconocido'}. Reanudando simulación.`;
+        setMessages(prev => [...prev, { sender: 'assistant', text: errMsg }]);
+        speakText(errMsg);
+      }
+    } else {
+      // Simulate AI response logic (Fallback Local Simulation)
+      setTimeout(() => {
+        let reply = '';
+        let ragData = null;
+        let toolData = null;
+
+        const lowerText = userMsg.toLowerCase();
+
+        if (lowerText.includes('stack') || lowerText.includes('tecnolog') || lowerText.includes('backend') || lowerText.includes('1') || lowerText.includes('pila')) {
+          reply = language === 'en' 
+            ? 'KVRVA develops backends primarily with Python (FastAPI) and TypeScript (NestJS). We design database schemas on PostgreSQL and MongoDB, and deploy our services using Docker and Kubernetes on AWS or GCP.'
+            : 'KVRVA desarrolla backends principalmente con Python (FastAPI) y TypeScript (NestJS). Diseñamos esquemas de bases de datos en PostgreSQL y MongoDB, y desplegamos servicios utilizando Docker y Kubernetes en AWS o GCP.';
+          
+          ragData = {
+            active: true,
+            file: 'Tecnologias.pdf',
+            text: language === 'en'
+              ? 'KVRVA standard tech stack: Python (FastAPI) for data/AI models, NestJS for enterprise microservices, Docker for application containerization.'
+              : 'Stack tecnológico estándar de KVRVA: Python (FastAPI) para modelos de datos/IA, NestJS para microservicios empresariales, Docker para contenerización.',
+            score: 0.98
+          };
+        } else if (lowerText.includes('cost') || lowerText.includes('presupuesto') || lowerText.includes('preci') || lowerText.includes('2') || lowerText.includes('crm') || lowerText.includes('saas')) {
+          reply = language === 'en'
+            ? 'Based on our budget calculator tool, a custom SaaS CRM or business platform generally estimates between 40 to 80 hours of engineering (around $3,000 to $6,000 USD) for a clean, production-ready initial release.'
+            : 'Según nuestra herramienta de cálculo de presupuestos, un CRM SaaS o plataforma de negocios a medida estima generalmente entre 40 y 80 horas de ingeniería (aproximadamente $3,000 a $6,000 USD) para un lanzamiento inicial limpio y listo para producción.';
+          
+          toolData = {
+            active: true,
+            func: 'calcular_presupuesto',
+            args: JSON.stringify({ tipo: 'SaaS CRM', usuarios: 500, db: 'PostgreSQL', securityLevel: 'High' }, null, 2),
+            ret: JSON.stringify({ horasEstimadas: '50-70 horas', rangoCostoUsd: '$3,500 - $5,500', backend: 'FastAPI', deployment: 'Docker/AWS' }, null, 2)
+          };
+        } else if (lowerText.includes('sap') || lowerText.includes('erp') || lowerText.includes('integrac') || lowerText.includes('3') || lowerText.includes('sistema')) {
+          reply = language === 'en'
+            ? 'We develop secure middleware pipelines that connect custom software with ERPs like SAP. This allows real-time synchronization of transactions, inventory data, and client databases via automated endpoints.'
+            : 'Desarrollamos tuberías de middleware seguras que conectan el software a medida con ERPs como SAP. Esto permite la sincronización en tiempo real de transacciones, datos de inventario y bases de datos de clientes mediante endpoints automatizados.';
+          
+          ragData = {
+            active: true,
+            file: 'IntegracionesERP.pdf',
+            text: language === 'en'
+              ? 'Middleware architecture connects custom REST APIs to SAP NetWeaver SOAP/REST endpoints with automated failover queues.'
+              : 'La arquitectura middleware conecta APIs REST personalizadas a endpoints SOAP/REST de SAP NetWeaver con colas de contingencia automatizadas.',
+            score: 0.94
+          };
+        } else {
+          reply = language === 'en'
+            ? 'Excellent question! At KVRVA, we design custom database architectures, develop high-performance APIs, and integrate LLM features (such as semantic search and data classification). Feel free to describe your specific project idea in the next tab to generate a complete software architecture proposal!'
+            : '¡Excelente pregunta! En KVRVA diseñamos arquitecturas de bases de datos a medida, desarrollamos APIs de alto rendimiento e integramos funcionalidades de LLM (como búsqueda semántica y clasificación de datos). ¡Siéntete libre de describir tu proyecto en la siguiente pestaña para generar una propuesta de arquitectura de software!';
+        }
+
+        setIsTyping(false);
+        
+        // Activate animations for panels
+        if (ragData) setActiveRag(ragData);
+        if (toolData) setActiveTool(toolData);
+
+        // Stream response word-by-word
+        const words = reply.split(' ');
+        let currentWordIndex = 0;
+        let currentText = '';
+
+        setMessages(prev => [...prev, { sender: 'assistant', text: '', isStreaming: true }]);
+
+        const interval = setInterval(() => {
+          if (currentWordIndex < words.length) {
+            currentText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex];
+            setMessages(prev => {
+              const next = [...prev];
+              next[next.length - 1] = { sender: 'assistant', text: currentText, isStreaming: true };
+              return next;
+            });
+            currentWordIndex++;
+          } else {
+            clearInterval(interval);
+            setMessages(prev => {
+              const next = [...prev];
+              next[next.length - 1] = { sender: 'assistant', text: currentText };
+              return next;
+            });
+            speakText(currentText);
+          }
+        }, 50);
+
+      }, 1000);
+    }
   };
 
   // Tab 2 proposal builder step handler
@@ -690,6 +817,18 @@ ${generatedArch.be}`;
                       </p>
                     </div>
                     <button 
+                      onClick={() => setShowKeyInput(!showKeyInput)}
+                      className={`p-2 rounded-lg border transition-all cursor-pointer ${
+                        showKeyInput || customApiKey || import.meta.env.VITE_GEMINI_API_KEY
+                          ? 'border-cyan-500/50 bg-cyan-500/10 text-cyan-400 font-bold' 
+                          : 'border-border-primary bg-bg-tertiary/60 text-text-secondary'
+                      }`}
+                      title="Gemini API Key Settings"
+                    >
+                      <Settings className="w-4 h-4" />
+                    </button>
+
+                    <button 
                       onClick={() => {
                         const nextMute = !isMuted;
                         setIsMuted(nextMute);
@@ -709,6 +848,66 @@ ${generatedArch.be}`;
                       {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                     </button>
                   </div>
+
+                  {/* API Key configuration drawer */}
+                  <AnimatePresence>
+                    {showKeyInput && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="bg-bg-tertiary/40 border border-border-primary rounded-xl p-3.5 flex flex-col gap-2.5 text-xs text-left"
+                      >
+                        <div className="flex justify-between items-center">
+                          <span className="font-semibold text-text-primary">
+                            {language === 'es' ? 'Conectar Google Gemini API (Gratis)' : 'Connect Google Gemini API (Free)'}
+                          </span>
+                          {(import.meta.env.VITE_GEMINI_API_KEY || customApiKey) ? (
+                            <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-green-500/15 border border-green-500/35 text-green-400 font-bold">
+                              LIVE ACTIVE
+                            </span>
+                          ) : (
+                            <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-text-secondary/10 border border-border-primary text-text-secondary font-light">
+                              {language === 'es' ? 'SIMULADO' : 'SIMULATED'}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-text-secondary text-[10px] leading-relaxed font-light">
+                          {language === 'es' 
+                            ? 'Opcional: Si configuras tu clave API, el chatbot responderá en tiempo real usando Gemini 1.5 Flash. La clave se almacena de forma segura en tu navegador local (localStorage).'
+                            : 'Optional: If you supply your API key, the chatbot will answer in real-time using Gemini 1.5 Flash. The key is securely stored in your local browser (localStorage).'}
+                        </p>
+                        <div className="flex gap-2">
+                          <input
+                            type="password"
+                            value={customApiKey}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setCustomApiKey(val);
+                              if (val) {
+                                localStorage.setItem('kvrva_gemini_key', val);
+                              } else {
+                                localStorage.removeItem('kvrva_gemini_key');
+                              }
+                            }}
+                            placeholder="AIzaSy..."
+                            className="flex-1 bg-black/30 border border-border-primary rounded-lg px-3 py-1.5 text-xs text-text-primary placeholder:text-text-secondary focus:outline-hidden focus:border-cyan-500/50 font-mono"
+                          />
+                          {customApiKey && (
+                            <button
+                              onClick={() => {
+                                setCustomApiKey('');
+                                localStorage.removeItem('kvrva_gemini_key');
+                              }}
+                              className="px-2.5 py-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all cursor-pointer font-bold"
+                            >
+                              Clear
+                            </button>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   {/* Chat message list area */}
                   <div ref={chatContainerRef} className="flex-1 overflow-y-auto max-h-[260px] pr-2 flex flex-col gap-4">
