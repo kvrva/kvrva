@@ -97,14 +97,14 @@ export const Projects: React.FC = () => {
                 VIEWLED
               </div>
               <div className="text-[7px] font-mono text-emerald-500/50 mt-1 uppercase tracking-wider">
-                Video Wall Controller
+                Web Platform
               </div>
             </div>
           </div>
 
           {/* Floating tag */}
           <div className="absolute right-4 bottom-4 glass px-2.5 py-1 rounded-md text-[9px] font-mono text-emerald-400 border border-emerald-400/20">
-            Hardware Sync
+            UI/UX Production
           </div>
         </div>
       )

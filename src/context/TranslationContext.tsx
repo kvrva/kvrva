@@ -89,8 +89,8 @@ const translations = {
         desc: 'Enterprise cloud platform for remote orchestration of commercial screens. Features sub-second screen synchronization, real-time WebSocket connection channels, drag-and-drop playlist builder, and automated network health monitoring.',
       },
       viewled: {
-        subtitle: 'LED Display Wall & Signage Controller',
-        desc: 'Production management and content distribution network built to control large-scale LED panels. Integrates pixel-perfect video chunking, real-time brightness calibration, and remote display status reporting via low-latency Socket.io pipelines.',
+        subtitle: 'Corporate Website & Digital Catalog',
+        desc: 'Official institutional website development for ViewLED, a leading large-scale LED display provider. Built with a modern B2B-optimized interface, focused on interactive architectural project showcase, hardware specs, and lead generation.',
       },
       aiPlatform: {
         subtitle: 'Gesture Recognition & Tracking API',
@@ -345,8 +345,8 @@ const translations = {
         desc: 'Plataforma en la nube empresarial para la orquestación remota de pantallas comerciales. Cuenta con sincronización de pantallas en sub-segundos, canales de conexión WebSocket en tiempo real, constructor de listas de reproducción interactivo y monitoreo automatizado de salud de red.',
       },
       viewled: {
-        subtitle: 'Controlador de Pantallas LED y Señalización',
-        desc: 'Red de distribución de contenidos y gestión de producción creada para controlar paneles LED de gran escala. Integra división de video pixel-perfect, calibración de brillo en tiempo real y reporte de estado remoto vía Socket.io de baja latencia.',
+        subtitle: 'Sitio Web Corporativo y Catálogo Digital',
+        desc: 'Desarrollo del sitio web oficial e institucional para ViewLED, empresa líder en pantallas LED de gran escala. Diseñado con una interfaz moderna y optimizada para el sector B2B, enfocado en la exhibición interactiva de proyectos arquitectónicos, especificaciones de hardware y captación de clientes potenciales (Lead Generation).',
       },
       aiPlatform: {
         subtitle: 'API de Seguimiento y Reconocimiento de Gestos',
