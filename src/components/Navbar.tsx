@@ -31,6 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
         
         {/* Left Side: MENU Button */}
         <button
+          data-testid="nav-menu-button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-border-primary hover:border-text-primary/40 hover:bg-bg-secondary text-[11px] font-mono font-medium tracking-wider uppercase text-text-primary transition-all duration-300 cursor-pointer shadow-xs"
           aria-label="Toggle menu"
@@ -41,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
 
         {/* Center: Brand Logo (Centered Absolutely) */}
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" data-testid="nav-logo" className="flex items-center gap-2 group">
             <svg
               viewBox="0 0 24 24"
               className="w-8 h-8 sm:w-9 sm:h-9 text-accent-primary group-hover:scale-105 transition-transform duration-300"
@@ -65,6 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
           <div className="hidden md:flex items-center gap-3">
             {/* Language Selector */}
             <button
+              data-testid="nav-lang-toggle"
               onClick={handleLanguageToggle}
               className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border-primary hover:bg-bg-secondary text-xs font-mono font-semibold text-text-secondary hover:text-text-primary transition-all duration-300 cursor-pointer"
               aria-label="Toggle language"
@@ -76,6 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
 
             {/* Theme Toggle Button */}
             <button
+              data-testid="nav-theme-toggle"
               onClick={toggleTheme}
               className="p-2 rounded-lg border border-border-primary hover:bg-bg-secondary text-text-secondary hover:text-text-primary transition-all duration-300 cursor-pointer"
               aria-label="Toggle theme"
@@ -90,6 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
 
           {/* Quick Contact Button (Oval) */}
           <a
+            data-testid="nav-contact-button"
             href="#contact"
             className="flex items-center gap-1.5 px-4.5 py-2.5 rounded-full border border-border-primary bg-text-primary text-bg-primary hover:bg-bg-secondary hover:text-text-primary hover:border-text-primary/30 text-[11px] font-mono font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer shadow-xs"
           >

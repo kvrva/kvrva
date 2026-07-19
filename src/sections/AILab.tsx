@@ -244,18 +244,19 @@ export const AILab: React.FC = () => {
           }
         }, 40);
 
-      } catch (err: any) {
+      } catch (err: unknown) {
         setIsTyping(false);
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
         const errMsg = language === 'en'
-          ? `Gemini API connection error: ${err.message || 'Unknown error'}. Falling back to simulation mode.`
-          : `Error de conexión con la API de Gemini: ${err.message || 'Error desconocido'}. Reanudando simulación.`;
+          ? `Gemini API connection error: ${errorMessage}. Falling back to simulation mode.`
+          : `Error de conexión con la API de Gemini: ${errorMessage}. Reanudando simulación.`;
         setMessages(prev => [...prev, { sender: 'assistant', text: errMsg }]);
         speakText(errMsg);
       }
     } else {
       // Simulate AI response logic (Fallback Local Simulation)
       setTimeout(() => {
-        let reply = '';
+        let reply: string;
         let ragData = null;
         let toolData = null;
 

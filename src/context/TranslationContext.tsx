@@ -5,7 +5,7 @@ type Language = 'en' | 'es';
 interface TranslationContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => any;
+  t: (key: string) => string;
 }
 
 const translations = {
@@ -536,10 +536,15 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     localStorage.setItem('language', lang);
   };
 
-  const t = (path: string) => {
+  const t = (path: string): string => {
     const dict = translations[language];
-    const value = path.split('.').reduce((acc: any, part) => acc && acc[part], dict);
-    return value || path;
+    const value = path.split('.').reduce<unknown>((acc, part) => {
+      if (acc && typeof acc === 'object' && part in acc) {
+        return (acc as Record<string, unknown>)[part];
+      }
+      return undefined;
+    }, dict);
+    return typeof value === 'string' ? value : path;
   };
 
   return (
@@ -549,6 +554,7 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTranslation = () => {
   const context = useContext(TranslationContext);
   if (!context) {

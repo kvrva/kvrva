@@ -92,9 +92,41 @@ export class PipelineController {
 
   useEffect(() => {
     if (activeTab === 'terminal' && terminalLines.length === 0) {
-      startDeployment();
+      const timer = setTimeout(() => {
+        setIsDeploying(true);
+        setTerminalLines(['$ kvrva deploy --prod --target=kubernetes']);
+        
+        const logs = [
+          '⚡ kvrva-cli v1.4.2 initialized',
+          '📦 Bundling source files...',
+          '🐳 Building Docker multi-stage container...',
+          '🐳 Docker build step 1/8: FROM python:3.11-alpine',
+          '🐳 Docker build step 8/8: EXPOSE 8000',
+          '✅ Container image build success: kvrva-api:latest (132MB)',
+          '🌐 Push container to private registry: gcr.io/kvrva-prod/api',
+          '🔒 Security scanned: 0 vulnerabilities found',
+          '☸️ Connecting to Kubernetes cluster: k8s-us-central',
+          '☸️ Updating deployment manifest (RollingUpdate)...',
+          '⏳ Waiting for 3 replicas to reach healthy state...',
+          '🟢 Replica pod-kvrva-api-7c89f5f5-abcde healthy',
+          '🟢 Replica pod-kvrva-api-7c89f5f5-fghij healthy',
+          '🟢 Replica pod-kvrva-api-7c89f5f5-klmno healthy',
+          '🚀 Traffic successfully routed through Cloudflare CDN',
+          '🚀 Deployment Completed Successfully! [https://api.kvrva.com]'
+        ];
+
+        logs.forEach((line, index) => {
+          setTimeout(() => {
+            setTerminalLines(prev => [...prev, line]);
+            if (index === logs.length - 1) {
+              setIsDeploying(false);
+            }
+          }, (index + 1) * 600);
+        });
+      }, 0);
+      return () => clearTimeout(timer);
     }
-  }, [activeTab]);
+  }, [activeTab, terminalLines.length]);
 
   const escapeHtml = (text: string) => {
     return text
