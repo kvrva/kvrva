@@ -32,8 +32,7 @@ export const AILab: React.FC = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   
   // Gemini Live API Key configuration
-  const [customApiKey, setCustomApiKey] = useState<string>(() => localStorage.getItem('kvrva_gemini_key') || '');
-  const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
+  const [customApiKey] = useState<string>(() => localStorage.getItem('kvrva_gemini_key') || '');
   
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -817,18 +816,6 @@ ${generatedArch.be}`;
                       </p>
                     </div>
                     <button 
-                      onClick={() => setShowKeyInput(!showKeyInput)}
-                      className={`p-2 rounded-lg border transition-all cursor-pointer ${
-                        showKeyInput || customApiKey || import.meta.env.VITE_GEMINI_API_KEY
-                          ? 'border-cyan-500/50 bg-cyan-500/10 text-cyan-400 font-bold' 
-                          : 'border-border-primary bg-bg-tertiary/60 text-text-secondary'
-                      }`}
-                      title="Gemini API Key Settings"
-                    >
-                      <Settings className="w-4 h-4" />
-                    </button>
-
-                    <button 
                       onClick={() => {
                         const nextMute = !isMuted;
                         setIsMuted(nextMute);
@@ -848,66 +835,6 @@ ${generatedArch.be}`;
                       {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                     </button>
                   </div>
-
-                  {/* API Key configuration drawer */}
-                  <AnimatePresence>
-                    {showKeyInput && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="bg-bg-tertiary/40 border border-border-primary rounded-xl p-3.5 flex flex-col gap-2.5 text-xs text-left"
-                      >
-                        <div className="flex justify-between items-center">
-                          <span className="font-semibold text-text-primary">
-                            {language === 'es' ? 'Conectar Google Gemini API (Gratis)' : 'Connect Google Gemini API (Free)'}
-                          </span>
-                          {(import.meta.env.VITE_GEMINI_API_KEY || customApiKey) ? (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-green-500/15 border border-green-500/35 text-green-400 font-bold">
-                              LIVE ACTIVE
-                            </span>
-                          ) : (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-text-secondary/10 border border-border-primary text-text-secondary font-light">
-                              {language === 'es' ? 'SIMULADO' : 'SIMULATED'}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-text-secondary text-[10px] leading-relaxed font-light">
-                          {language === 'es' 
-                            ? 'Opcional: Si configuras tu clave API, el chatbot responderá en tiempo real usando Gemini 1.5 Flash. La clave se almacena de forma segura en tu navegador local (localStorage).'
-                            : 'Optional: If you supply your API key, the chatbot will answer in real-time using Gemini 1.5 Flash. The key is securely stored in your local browser (localStorage).'}
-                        </p>
-                        <div className="flex gap-2">
-                          <input
-                            type="password"
-                            value={customApiKey}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              setCustomApiKey(val);
-                              if (val) {
-                                localStorage.setItem('kvrva_gemini_key', val);
-                              } else {
-                                localStorage.removeItem('kvrva_gemini_key');
-                              }
-                            }}
-                            placeholder="AIzaSy..."
-                            className="flex-1 bg-black/30 border border-border-primary rounded-lg px-3 py-1.5 text-xs text-text-primary placeholder:text-text-secondary focus:outline-hidden focus:border-cyan-500/50 font-mono"
-                          />
-                          {customApiKey && (
-                            <button
-                              onClick={() => {
-                                setCustomApiKey('');
-                                localStorage.removeItem('kvrva_gemini_key');
-                              }}
-                              className="px-2.5 py-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all cursor-pointer font-bold"
-                            >
-                              Clear
-                            </button>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
 
                   {/* Chat message list area */}
                   <div ref={chatContainerRef} className="flex-1 overflow-y-auto max-h-[260px] pr-2 flex flex-col gap-4">

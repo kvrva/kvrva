@@ -35,6 +35,46 @@ const AppContent: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  // Global anchor smooth scroll handler with fixed header offset
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      if (!anchor) return;
+
+      const href = anchor.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        
+        if (href === '#' || href === '#top') {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+          return;
+        }
+
+        const id = href.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          const headerOffset = 90; // Header is h-20 (80px) + 10px spacing
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => {
+      document.removeEventListener('click', handleAnchorClick);
+    };
+  }, []);
+
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
