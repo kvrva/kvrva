@@ -21,7 +21,7 @@ class MockIntersectionObserver implements IntersectionObserver {
   readonly rootMargin: string = '';
   readonly scrollMargin: string = '';
   readonly thresholds: ReadonlyArray<number> = [];
-  constructor(_callback?: IntersectionObserverCallback, _options?: IntersectionObserverInit) {}
+  constructor() {}
   disconnect() {}
   observe() {}
   takeRecords(): IntersectionObserverEntry[] { return []; }
@@ -36,7 +36,7 @@ Object.defineProperty(window, 'IntersectionObserver', {
 
 // Mock ResizeObserver
 class MockResizeObserver implements ResizeObserver {
-  constructor(_callback?: ResizeObserverCallback) {}
+  constructor() {}
   disconnect() {}
   observe() {}
   unobserve() {}
