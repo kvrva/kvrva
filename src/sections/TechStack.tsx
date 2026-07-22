@@ -117,18 +117,6 @@ export const TechStack: React.FC = () => {
       )
     },
     {
-      name: 'Kubernetes',
-      category: 'devops',
-      categoryLabel: 'Orchestration',
-      color: 'hover:border-indigo-500/40 hover:bg-indigo-950/10 shadow-indigo-500/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 .002L1.83 3.705v7.41c0 6.276 4.341 12.148 10.17 12.883 5.829-.735 10.17-6.607 10.17-12.883v-7.41L12 .002z" fill="#326CE5"/>
-          <path d="M12 2.27l7.9 4.56v9.118l-7.9 4.558-7.9-4.558V6.832l7.9-4.56z" fill="#FFF"/>
-        </svg>
-      )
-    },
-    {
       name: 'AWS',
       category: 'devops',
       categoryLabel: 'Cloud Platform',
