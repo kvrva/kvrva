@@ -92,7 +92,7 @@ export const TechStack: React.FC = () => {
       category: 'devops',
       categoryLabel: 'Cloud Platform',
       color: 'hover:border-blue-500/40 hover:bg-blue-950/10 shadow-blue-500/5',
-      icon: <img src="/logos/Logo-google-cloud-icon-vector-PNG.avif" alt="GCP" className="w-9 h-9 object-contain" />
+      icon: <img src="/logos/Logo-google-cloud-icon-vector-PNG.png" alt="GCP" className="w-9 h-9 object-contain" />
     },
     {
       name: 'PostgreSQL',

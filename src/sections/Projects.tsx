@@ -25,42 +25,25 @@ export const Projects: React.FC = () => {
       link: 'https://veerlow.com',
       themeColor: 'group-hover:border-cyan-500/30 shadow-cyan-500/5 hover:shadow-cyan-500/10',
       illustration: (
-        <div className="w-full h-full relative overflow-hidden rounded-xl bg-slate-950 flex items-center justify-center p-6 border border-white/5">
-          {/* Grid lines background */}
-          <div className="absolute inset-0 opacity-[0.05] grid-bg" />
-          
-          {/* Signage Display Mockup */}
-          <div className="w-4/5 aspect-video bg-[#0d0e12] rounded-lg border border-white/10 shadow-2xl relative overflow-hidden flex flex-col p-2.5">
-            {/* Header bar */}
-            <div className="flex items-center justify-between border-b border-white/5 pb-2 mb-2">
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span className="text-[9px] font-mono text-cyan-400">Device #042-Active</span>
-              </div>
-              <span className="text-[8px] font-mono text-text-tertiary">Syncing: 99.8%</span>
+        <div className="w-full h-full relative overflow-hidden rounded-xl bg-slate-950 flex items-center justify-center p-4 sm:p-6 border border-white/5 group">
+          {/* Browser Container Mockup */}
+          <div className="w-full h-full bg-[#0d0e12] rounded-lg border border-white/10 shadow-2xl relative overflow-hidden flex flex-col">
+            {/* Browser Header Bar */}
+            <div className="flex items-center gap-1.5 px-3 py-2 bg-bg-secondary border-b border-white/5">
+              <span className="w-2 h-2 rounded-full bg-red-500/80" />
+              <span className="w-2 h-2 rounded-full bg-yellow-500/80" />
+              <span className="w-2 h-2 rounded-full bg-green-500/80" />
+              <span className="text-[10px] font-mono text-text-tertiary ml-2 select-none">veerlow.com</span>
             </div>
-            
-            {/* Display Content Grid */}
-            <div className="grid grid-cols-3 gap-1.5 flex-1">
-              <div className="col-span-2 bg-linear-to-br from-cyan-900/20 to-blue-900/20 rounded-md border border-cyan-500/10 flex flex-col justify-between p-2">
-                <span className="text-[7px] font-mono text-cyan-300">Live Playlist Content</span>
-                <div className="space-y-1 mt-2">
-                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full w-4/5 bg-cyan-500 rounded-full" />
-                  </div>
-                  <div className="h-1 w-2/3 bg-white/5 rounded-full" />
-                </div>
-              </div>
-              <div className="bg-[#16171d] rounded-md border border-white/5 flex flex-col items-center justify-center p-1.5 text-center">
-                <span className="text-[6px] text-text-secondary">Network Latency</span>
-                <span className="text-xs font-semibold text-white font-mono mt-1">12ms</span>
-              </div>
+            {/* Screen Image */}
+            <div className="flex-1 overflow-hidden relative">
+              <img 
+                src="/veerlow-thumb.png" 
+                alt="Veerlow Dashboard" 
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 to-transparent pointer-events-none" />
             </div>
-          </div>
-
-          {/* Floating tags */}
-          <div className="absolute right-4 bottom-4 glass px-2.5 py-1 rounded-md text-[9px] font-mono text-cyan-400 border border-cyan-400/20">
-            Realtime Sync
           </div>
         </div>
       )
@@ -73,38 +56,25 @@ export const Projects: React.FC = () => {
       link: 'https://viewled.com.ar',
       themeColor: 'group-hover:border-emerald-500/30 shadow-emerald-500/5 hover:shadow-emerald-500/10',
       illustration: (
-        <div className="w-full h-full relative overflow-hidden rounded-xl bg-slate-950 flex items-center justify-center p-6 border border-white/5">
-          {/* LED dots matrix pattern background */}
-          <div className="absolute inset-0 opacity-[0.08]" style={{
-            backgroundImage: 'radial-gradient(circle, #10b981 1px, transparent 1px)',
-            backgroundSize: '12px 12px'
-          }} />
-          
-          {/* Large LED Panel Mockup */}
-          <div className="w-4/5 aspect-video bg-[#050b07] rounded-lg border border-emerald-500/20 shadow-2xl relative overflow-hidden flex flex-col p-3">
-            {/* Control Bar */}
-            <div className="flex items-center justify-between border-b border-emerald-500/10 pb-2 mb-2">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[9px] font-mono text-emerald-400">LED PANEL #01-ONLINE</span>
-              </div>
-              <span className="text-[8px] font-mono text-emerald-500/60">FPS: 60.0</span>
+        <div className="w-full h-full relative overflow-hidden rounded-xl bg-slate-950 flex items-center justify-center p-4 sm:p-6 border border-white/5 group">
+          {/* Browser Container Mockup */}
+          <div className="w-full h-full bg-[#0d0e12] rounded-lg border border-white/10 shadow-2xl relative overflow-hidden flex flex-col">
+            {/* Browser Header Bar */}
+            <div className="flex items-center gap-1.5 px-3 py-2 bg-bg-secondary border-b border-white/5">
+              <span className="w-2 h-2 rounded-full bg-red-500/80" />
+              <span className="w-2 h-2 rounded-full bg-yellow-500/80" />
+              <span className="w-2 h-2 rounded-full bg-green-500/80" />
+              <span className="text-[10px] font-mono text-text-tertiary ml-2 select-none">viewled.com.ar</span>
             </div>
-            
-            {/* ViewLED Logo and Graphic */}
-            <div className="flex-1 flex flex-col justify-center items-center relative">
-              <div className="text-emerald-400 font-display font-black text-xl tracking-widest drop-shadow-[0_0_12px_rgba(16,185,129,0.6)] animate-pulse">
-                VIEWLED
-              </div>
-              <div className="text-[7px] font-mono text-emerald-500/50 mt-1 uppercase tracking-wider">
-                Web Platform
-              </div>
+            {/* Screen Image */}
+            <div className="flex-1 overflow-hidden relative">
+              <img 
+                src="/viewled-thumb.png" 
+                alt="ViewLED Platform" 
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/40 to-transparent pointer-events-none" />
             </div>
-          </div>
-
-          {/* Floating tag */}
-          <div className="absolute right-4 bottom-4 glass px-2.5 py-1 rounded-md text-[9px] font-mono text-emerald-400 border border-emerald-400/20">
-            UI/UX Production
           </div>
         </div>
       )
