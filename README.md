@@ -28,42 +28,9 @@
 
 ---
 
-## 🧪 Pruebas Automatizadas & Calidad de Código
+## 🛠️ Guía de Desarrollo e Ingeniería
 
-El repositorio cuenta con una suite integral de pruebas unitarias e integración impulsada por **Vitest** y **React Testing Library**:
-
-- **Suite Unitarias e Integración**: `TranslationContext`, `Navbar`, `Hero`, `Services`, `AILab`, `Projects`, `Footer` y `App`.
-- **Mocks Globales**: Configuración de `IntersectionObserver`, `ResizeObserver`, `matchMedia` y `HTMLCanvasElement` en `src/test/setup.ts`.
-
-### Comandos de Verificación del Quality Gate:
-
-```bash
-# 1. Ejecutar Suite de Pruebas Automatizadas
-npm run test
-
-# 2. Ejecutar Linter de Código (0 errores / 0 warnings)
-npm run lint
-
-# 3. Verificación de Tipos TypeScript (Strict Mode)
-npx tsc -b
-
-# 4. Compilación de Producción
-npm run build
-```
-
----
-
-## 🤖 Modelo de Trabajo Multiagente (Multi-Agent Operating Model)
-
-El desarrollo del proyecto sigue una arquitectura de trabajo en paralelo dividida en 5 agentes especializados:
-
-1. **👑 Agent 0: Lead Engineering & Integration Orchestrator**: Gestión de dependencias globales (`package.json`, `tsconfig.json`) y Quality Gates de compilación.
-2. **🧪 Agent 1: QA & Automated Testing Specialist**: Mantenimiento de la suite de pruebas Vitest en `src/__tests__`.
-3. **🎨 Agent 2: UI/UX & Micro-Animations Specialist**: Sistema de diseño responsive, modo oscuro/claro y animaciones Framer Motion.
-4. **⚡ Agent 3: SEO, Accessibility & Performance Specialist**: Marcado semántico HTML5, datos estructurados **Schema.org (JSON-LD)**, metadatos OpenGraph y norma de accesibilidad WCAG (`:focus-visible`).
-5. **🌐 Agent 4: i18n & Content Engineering Specialist**: Gestión del contexto bilingüe (Español / Inglés) en `TranslationContext.tsx`.
-
-Para mayor detalle de la arquitectura, consultar la guía en [`docs/MULTIAGENT_ARCHITECTURE.md`](./docs/MULTIAGENT_ARCHITECTURE.md) y las reglas de workspace en [`.agents/AGENTS.md`](./.agents/AGENTS.md).
+Para obtener detalles de configuración local, comandos de calidad automatizados y el modelo de trabajo multiagente, consulta la [Guía de Desarrollo e Ingeniería (docs/DEVELOPMENT.md)](./docs/DEVELOPMENT.md).
 
 ---
 
