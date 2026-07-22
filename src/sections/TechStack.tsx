@@ -30,14 +30,7 @@ export const TechStack: React.FC = () => {
       category: 'languages',
       categoryLabel: 'Language',
       color: 'hover:border-blue-500/40 hover:bg-blue-950/10 shadow-blue-500/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14.25.18a3.75 3.75 0 0 0-2.3 3.6v1.95h-5A3.75 3.75 0 0 0 3.2 9.5v2.85h3V9.5a.75.75 0 0 1 .75-.75h7.35a3.75 3.75 0 0 0 3.75-3.75V1.28A3.75 3.75 0 0 0 14.25.18z" fill="#3776AB"/>
-          <path d="M9.75 23.82a3.75 3.75 0 0 0 2.3-3.6v-1.95h5a3.75 3.75 0 0 0 3.75-3.75v-2.85h-3v2.85a.75.75 0 0 1-.75.75H9.7a3.75 3.75 0 0 0-3.75 3.75v3.75A3.75 3.75 0 0 0 9.75 23.82z" fill="#FFD343"/>
-          <circle cx="12.15" cy="1.88" r="1.05" fill="#FFF"/>
-          <circle cx="11.85" cy="22.12" r="1.05" fill="#FFF"/>
-        </svg>
-      )
+      icon: <img src="/logos/Python-logo-notext.svg.webp" alt="Python" className="w-9 h-9 object-contain" />
     },
     {
       name: 'FastAPI',
@@ -56,41 +49,21 @@ export const TechStack: React.FC = () => {
       category: 'frameworks',
       categoryLabel: 'Backend Framework',
       color: 'hover:border-red-500/40 hover:bg-red-950/10 shadow-red-500/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.013 0l-10.33 6.002v11.996l10.33 6.002 10.33-6.002v-11.996l-10.33-6.002z" fill="#E0234E"/>
-          <path d="M17.027 12.101l-5.014-2.91-5.014 2.91v5.82l5.014 2.91 5.014-2.91v-5.82z" fill="#FFF"/>
-        </svg>
-      )
+      icon: <img src="/logos/NestJS.svg" alt="NestJS" className="w-9 h-9 object-contain" />
     },
     {
       name: 'React',
       category: 'frameworks',
       categoryLabel: 'Frontend UI',
       color: 'hover:border-cyan-400/40 hover:bg-cyan-950/10 shadow-cyan-400/5',
-      icon: (
-        <svg viewBox="-11.5 -10.2 23 20.4" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="0" cy="0" r="2.05" fill="#61DAFB"/>
-          <g stroke="#61DAFB" strokeWidth="1.2" fill="none">
-            <ellipse rx="11" ry="4.2"/>
-            <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-            <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
-          </g>
-        </svg>
-      )
+      icon: <img src="/logos/React-icon.svg.webp" alt="React" className="w-9 h-9 object-contain" />
     },
     {
       name: 'Flutter',
       category: 'frameworks',
       categoryLabel: 'Mobile App SDK',
       color: 'hover:border-blue-400/40 hover:bg-blue-950/10 shadow-blue-400/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14.3 0L2.3 12l3.7 3.7 12-12h-3.7z" fill="#40D0FD"/>
-          <path d="M21.7 12l-6 6 6 6V12z" fill="#01579B"/>
-          <path d="M9.7 12L6 15.7l8.3 8.3h3.7L9.7 12z" fill="#0175C2"/>
-        </svg>
-      )
+      icon: <img src="/logos/Flutter_logo.svg.webp" alt="Flutter" className="w-9 h-9 object-contain" />
     },
     {
       name: 'Node.js',
@@ -110,11 +83,7 @@ export const TechStack: React.FC = () => {
       category: 'devops',
       categoryLabel: 'Container Engine',
       color: 'hover:border-cyan-500/40 hover:bg-cyan-950/10 shadow-cyan-500/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13.983 11.078h2.119c.102 0 .186-.083.186-.185V8.59c0-.103-.084-.186-.186-.186h-2.119c-.103 0-.186.083-.186.186v2.303c0 .102.083.185.186.185zm-2.736 0h2.119c.102 0 .185-.083.185-.185V8.59c0-.103-.083-.186-.185-.186h-2.119c-.103 0-.186.083-.186.186v2.303c0 .102.083.185.186.185zm-2.735 0h2.119c.102 0 .185-.083.185-.185V8.59c0-.103-.083-.186-.185-.186H8.512c-.103 0-.186.083-.186.186v2.303c0 .102.083.185.186.185zm-2.736 0h2.119c.102 0 .186-.083.186-.185V8.59c0-.103-.084-.186-.186-.186H5.776c-.102 0-.186.083-.186.186v2.303c0 .102.084.185.186.185zm5.47-2.737h2.119c.102 0 .185-.083.185-.185V5.852c0-.102-.083-.186-.185-.186h-2.119c-.103 0-.186.084-.186.186v2.303c0 .102.083.185.186.185zm-2.735 0h2.119c.102 0 .185-.083.185-.185V5.852c0-.102-.083-.186-.185-.186H8.512c-.103 0-.186.084-.186.186v2.303c0 .102.083.185.186.185zm0-2.737h2.119c.102 0 .185-.083.185-.186V3.114c0-.102-.083-.186-.185-.186H8.512c-.103 0-.186.084-.186.186v2.303c0 .103.083.186.186.186zm9.208 5.474h-2.119c-.103 0-.186.083-.186.185v2.302c0 .103.083.186.186.186h2.119c.102 0 .186-.083.186-.186v-2.302c0-.102-.084-.185-.186-.185zm-17.29 0h2.119c.103 0 .186-.083.186-.185V8.59c0-.103-.083-.186-.186-.186H2.601c-.102 0-.185.083-.185.186v2.303c0 .102.083.185.185.185zm21.32 1.346c-.227-2.464-1.666-4.478-3.794-5.466l-.427-.197v.758c0 .543-.228.988-.67 1.325-.373.284-.88.423-1.37.423h-.443v1.396c0 .488-.316.82-.727.82h-1.895c-.411 0-.727-.332-.727-.82V8.47c0-.488.316-.82.727-.82h1.39v-.748c0-.487.316-.82.727-.82h1.391v-1.63l-.221-.1C16.924 3.73 15.01 4.148 13.784 5.2c-1.127.967-1.745 2.37-1.745 3.74v3.136c0 .488-.317.82-.728.82H9.416c-.411 0-.727-.332-.727-.82V10.39c0-.488.316-.82.727-.82h.93c.411 0 .727-.332.727-.82V7.355c0-.488-.316-.82-.727-.82H8.8c-.41 0-.727.332-.727.82V8.75c0 .488-.317.82-.728.82H6.416c-.411 0-.728-.332-.728-.82V7.355c0-.488-.316-.82-.727-.82H3.567c-.41 0-.727.332-.727.82v1.396c0 .488-.316.82-.727.82H.872c-.41 0-.727.332-.727.82v2.17c0 .488.317.82.727.82h1.606c.411 0 .727.332.727.82v2.17c0 .488-.316.82-.727.82H.872c-.41 0-.727.332-.727.82v1.63c0 4.542 3.82 8.243 8.5 8.243 7.823 0 12.57-5.918 13.847-11.139.957-.22 1.705-.678 2.217-1.353.385-.515.565-1.15.565-1.802z" fill="#2496ED"/>
-        </svg>
-      )
+      icon: <img src="/logos/docker_icon_130955.webp" alt="Docker" className="w-9 h-9 object-contain" />
     },
     {
       name: 'AWS',
@@ -144,11 +113,7 @@ export const TechStack: React.FC = () => {
       category: 'databases',
       categoryLabel: 'RDBMS Database',
       color: 'hover:border-sky-600/40 hover:bg-sky-950/10 shadow-sky-600/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19.92 11.233c.092-.123.163-.264.21-.415.706-2.28-.432-4.707-2.613-5.556-2.18-.85-4.72.062-5.748 2.083a4.702 4.702 0 0 0-2.148-.521H3.61c-.504 0-.913.409-.913.913v6.056c0 1.25.42 2.457 1.196 3.44l.288.358c.84 1.037 2.057 1.705 3.398 1.865a7.35 7.35 0 0 0 3.738-.282c2.028-.718 3.518-2.38 3.98-4.444.295-.084.58-.204.85-.357 1.077-.611 1.954-1.572 2.483-2.735a4.718 4.718 0 0 0 .93-3.418zm-8.888-2.656c-.347 0-.63-.283-.63-.63s.283-.63.63-.63.63.283.63.63-.283.63-.63.63zm-4.72 5.093H3.61v-2.316h2.702v2.316zm0-3.32H3.61V8.034h2.702V10.35z" fill="#336791"/>
-        </svg>
-      )
+      icon: <img src="/logos/Postgresql_elephant.svg.webp" alt="PostgreSQL" className="w-9 h-9 object-contain" />
     },
     {
       name: 'MySQL',
@@ -177,54 +142,28 @@ export const TechStack: React.FC = () => {
       category: 'devops',
       categoryLabel: 'Operating System',
       color: 'hover:border-amber-500/40 hover:bg-amber-950/10 shadow-amber-500/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C9.24 2 7 4.24 7 7c0 .93.25 1.8.7 2.55C6.07 10.75 5 12.75 5 15c0 3.31 2.69 6 6 6s6-2.69 6-6c0-2.25-1.07-4.25-2.7-5.45.45-.75.7-1.62.7-2.55 0-2.76-2.24-5-5-5zm0 1.5c1.93 0 3.5 1.57 3.5 3.5S13.93 10.5 12 10.5 8.5 8.93 8.5 7s1.57-3.5 3.5-3.5zM11 12.5h2v3h-2v-3zm0 4h2v1.5h-2v-1.5z" fill="#FCC624"/>
-        </svg>
-      )
+      icon: <img src="/logos/Pinguino-Linux.png" alt="Linux" className="w-9 h-9 object-contain" />
     },
     {
       name: 'Git',
       category: 'devops',
       categoryLabel: 'Version Control',
       color: 'hover:border-orange-600/40 hover:bg-orange-950/10 shadow-orange-600/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M23.3 10.9L13.1.7c-.8-.8-2-.8-2.8 0L8.7 2.3l3.2 3.2c.8-.3 1.8-.1 2.4.6.6.6.8 1.6.5 2.4l3.2 3.2c.8-.3 1.8-.1 2.4.6.9.8.9 2.2 0 3-.8.9-2.2.9-3 0-.6-.6-.8-1.6-.5-2.4L13.7 9.7c-.3.3-.6.4-1 .4-.4 0-.8-.1-1-.4l-3-3-4.6 4.6c-.8.8-.8 2 0 2.8l10.2 10.2c.8.8 2 .8 2.8 0l10.2-10.2c.8-.8.8-2 0-2.8z" fill="#F05032"/>
-        </svg>
-      )
+      icon: <img src="/logos/Git_icon.svg.webp" alt="Git" className="w-9 h-9 object-contain" />
     },
     {
       name: 'OpenCV',
       category: 'ai-tools',
       categoryLabel: 'Computer Vision',
       color: 'hover:border-green-600/40 hover:bg-green-950/10 shadow-green-600/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9 fill-none stroke-current" strokeWidth="2.5" strokeLinecap="round" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 9.5a3.5 3.5 0 1 1-2.5 1" stroke="#FF6B00"/>
-          <path d="M7 16.5a3.5 3.5 0 1 1 2.5-1" stroke="#00FF00"/>
-          <path d="M17 16.5a3.5 3.5 0 1 1-1.5-2.8" stroke="#00C0FF"/>
-        </svg>
-      )
+      icon: <img src="/logos/opencv_logo_icon_170887.webp" alt="OpenCV" className="w-9 h-9 object-contain" />
     },
     {
       name: 'MediaPipe',
       category: 'ai-tools',
       categoryLabel: 'ML Inference',
       color: 'hover:border-purple-500/40 hover:bg-purple-950/10 shadow-purple-500/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9 fill-none" strokeWidth="1.8" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="4" r="2.5" fill="#00e676" stroke="#00e676"/>
-          <circle cx="5" cy="12" r="2.5" fill="#00b0ff" stroke="#00b0ff"/>
-          <circle cx="19" cy="12" r="2.5" fill="#00b0ff" stroke="#00b0ff"/>
-          <circle cx="12" cy="20" r="2.5" fill="#00e676" stroke="#00e676"/>
-          <line x1="12" y1="6.5" x2="5" y2="9.5" stroke="#FFF"/>
-          <line x1="12" y1="6.5" x2="19" y2="9.5" stroke="#FFF"/>
-          <line x1="5" y1="14.5" x2="12" y2="17.5" stroke="#FFF"/>
-          <line x1="19" y1="14.5" x2="12" y2="17.5" stroke="#FFF"/>
-          <line x1="5" y1="12" x2="19" y2="12" stroke="#FFF" strokeDasharray="2 2"/>
-        </svg>
-      )
+      icon: <img src="/logos/logo-mediapipe.png" alt="MediaPipe" className="w-9 h-9 object-contain" />
     }
   ];
 
