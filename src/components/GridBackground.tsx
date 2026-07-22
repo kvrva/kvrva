@@ -19,7 +19,7 @@ export const GridBackground: React.FC = () => {
     };
   }, []);
 
-  const watermarkOpacity = scrollProgress * 0.18; // Opacity scales smoothly up to 0.18
+  const watermarkOpacity = scrollProgress * 0.16; // Opacity scales smoothly up to 0.16
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-bg-primary transition-colors duration-300 pointer-events-none">
@@ -47,21 +47,20 @@ export const GridBackground: React.FC = () => {
       <div className="absolute top-[45%] right-[20%] w-[300px] h-[300px] rounded-full bg-cyan-500 opacity-20 dark:opacity-10 blur-[80px] animate-float" />
       <div className="absolute top-[70%] left-[15%] w-[320px] h-[320px] rounded-full bg-purple-600 opacity-20 dark:opacity-10 blur-[85px] animate-float-reverse" />
 
-      {/* Centered Fixed Neon Watermark Logo (fades in gracefully when scrolling down) */}
+      {/* Centered Fixed Neon Watermark Logo (Razor-Sharp Stacked Vector Design) */}
       <div 
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] md:w-[640px] md:h-[640px] flex items-center justify-center transition-opacity duration-700 ease-out pointer-events-none"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] md:w-[600px] md:h-[600px] flex items-center justify-center transition-opacity duration-700 ease-out pointer-events-none"
         style={{ opacity: watermarkOpacity }}
       >
-        {/* Ambient Neon Backglow */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-accent-primary/40 via-accent-secondary/30 to-cyan-500/30 blur-[120px] animate-float" />
+        {/* Ambient Neon Backglow - Separated from the SVG to avoid rasterization pixelation */}
+        <div className="absolute w-[80%] h-[80%] rounded-full bg-gradient-to-tr from-accent-primary/20 via-accent-secondary/20 to-cyan-500/15 blur-[100px] animate-float" />
         
-        {/* Glowing Neon SVG Logo Curve */}
+        {/* Stacked vector lines for sharp, high-definition neon glow */}
         <svg
-          viewBox="0 0 24 24"
-          className="w-full h-full text-accent-primary filter drop-shadow-[0_0_50px_rgba(168,85,247,0.45)]"
+          viewBox="0 0 100 100"
+          className="w-full h-full"
           fill="none"
           stroke="url(#centered-neon-gradient)"
-          strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
@@ -72,7 +71,27 @@ export const GridBackground: React.FC = () => {
               <stop offset="100%" stopColor="#06b6d4" />
             </linearGradient>
           </defs>
-          <path d="M 3 20 C 3 10, 8 4, 14 4 C 20 4, 21 11, 14 15 C 9 18, 15 20, 21 20" />
+          
+          {/* Outer glow layer (thick stroke, low opacity) */}
+          <path 
+            d="M 12 80 C 12 40, 32 16, 56 16 C 80 16, 84 44, 56 60 C 36 72, 60 80, 84 80" 
+            strokeWidth="10" 
+            strokeOpacity="0.10" 
+          />
+          
+          {/* Mid glow layer (medium stroke, intermediate opacity) */}
+          <path 
+            d="M 12 80 C 12 40, 32 16, 56 16 C 80 16, 84 44, 56 60 C 36 72, 60 80, 84 80" 
+            strokeWidth="5" 
+            strokeOpacity="0.25" 
+          />
+          
+          {/* Hot core layer (thin stroke, high opacity) */}
+          <path 
+            d="M 12 80 C 12 40, 32 16, 56 16 C 80 16, 84 44, 56 60 C 36 72, 60 80, 84 80" 
+            strokeWidth="1.8" 
+            strokeOpacity="0.75" 
+          />
         </svg>
       </div>
 
