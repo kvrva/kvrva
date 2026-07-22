@@ -146,8 +146,8 @@ const translations = {
         desc: 'Security audited from day one. We enforce rigid authorization guards, input validations, SQL injection prevention, and secure credential handling.',
       },
       cloud: {
-        title: 'Cloud Native',
-        desc: 'Optimized to leverage modern cloud environments (AWS/GCP), using container infrastructure like Docker and Kubernetes for painless horizontal scaling.',
+        title: 'Cloud Hosting',
+        desc: 'Optimized to leverage modern cloud servers (DigitalOcean VPS), using containerized infrastructure with Docker for reliable, secure, and easily reproducible deployments.',
       },
       code: {
         title: 'Clean Code',
@@ -402,8 +402,8 @@ const translations = {
         desc: 'Seguridad auditada desde el primer día. Aplicamos guardias de autorización rígidas, validaciones de entrada, prevención de inyección SQL y manejo seguro de credenciales.',
       },
       cloud: {
-        title: 'Nube Nativa',
-        desc: 'Optimizado para aprovechar entornos de nube modernos (AWS/GCP), utilizando contenedores Docker y Kubernetes para escalado horizontal sin fricciones.',
+        title: 'Servidores en la Nube',
+        desc: 'Optimizado para aprovechar servidores en la nube modernos (DigitalOcean VPS), utilizando contenedores Docker para despliegues confiables, seguros y fácilmente reproducibles.',
       },
       code: {
         title: 'Código Limpio',

@@ -86,25 +86,13 @@ export const TechStack: React.FC = () => {
       icon: <img src="/logos/docker_icon_130955.webp" alt="Docker" className="w-9 h-9 object-contain" />
     },
     {
-      name: 'AWS',
+      name: 'DigitalOcean',
       category: 'devops',
-      categoryLabel: 'Cloud Platform',
-      color: 'hover:border-orange-500/40 hover:bg-orange-950/10 shadow-orange-500/5',
+      categoryLabel: 'Cloud Hosting & VPS',
+      color: 'hover:border-blue-600/40 hover:bg-blue-950/10 shadow-blue-600/5',
       icon: (
         <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 13.5c-.3-.2-.7-.1-.9.2-2.1 3-5.6 4.8-9.4 4.8-5.2 0-9.8-3.3-11.2-8.1-.1-.4.3-.7.7-.6 4 .8 8.2 1.2 12.3 1.2 2.7 0 5.4-.2 8-.8.3-.1.6.3.3.5l-.8.8c-.3.3-.7.3-1 0z" fill="#FF9900"/>
-          <path d="M23.7 4.9c-.6.9-1.4 1.7-2.3 2.3-.3.2-.7-.1-.6-.5.4-1.4.7-2.9.8-4.4 0-.4.4-.5.6-.2.8.9 1.6 1.9 2.4 2.9.2.3-.1.7-.5.7l-.4-.2z" fill="#FF9900"/>
-        </svg>
-      )
-    },
-    {
-      name: 'GCP',
-      category: 'devops',
-      categoryLabel: 'Cloud Platform',
-      color: 'hover:border-blue-500/40 hover:bg-blue-950/10 shadow-blue-500/5',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z" fill="#4285F4"/>
+          <path d="M12.012 0C5.378 0 0 5.378 0 12.012c0 6.634 5.378 12.012 12.012 12.012 6.634 0 12.012-5.378 12.012-12.012H18.01c0 3.308-2.69 5.998-5.998 5.998a5.998 5.998 0 01-5.998-5.998c0-3.308 2.69-5.998 5.998-5.998v-6.01zm6.002 6.006h6v6h-6v-6zm3 9.006h3v3h-3v-3zm-6 6h3v3h-3v-3z" fill="#0080FF"/>
         </svg>
       )
     },

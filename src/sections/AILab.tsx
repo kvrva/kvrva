@@ -264,8 +264,8 @@ export const AILab: React.FC = () => {
 
         if (lowerText.includes('stack') || lowerText.includes('tecnolog') || lowerText.includes('backend') || lowerText.includes('1') || lowerText.includes('pila')) {
           reply = language === 'en' 
-            ? 'KVRVA develops backends primarily with Python (FastAPI) and TypeScript (NestJS). We design database schemas on PostgreSQL and MongoDB, and deploy our services using Docker and Kubernetes on AWS or GCP.'
-            : 'KVRVA desarrolla backends principalmente con Python (FastAPI) y TypeScript (NestJS). Diseñamos esquemas de bases de datos en PostgreSQL y MongoDB, y desplegamos servicios utilizando Docker y Kubernetes en AWS o GCP.';
+            ? 'KVRVA develops backends primarily with Python (FastAPI) and TypeScript (NestJS). We design database schemas on PostgreSQL and MongoDB, and deploy our services using Docker on DigitalOcean VPS cloud servers.'
+            : 'KVRVA desarrolla backends principalmente con Python (FastAPI) y TypeScript (NestJS). Diseñamos esquemas de bases de datos en PostgreSQL y MongoDB, y desplegamos servicios utilizando Docker en servidores VPS de DigitalOcean.';
           
           ragData = {
             active: true,

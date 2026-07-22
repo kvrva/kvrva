@@ -24,7 +24,7 @@
 - **Python Framework**: FastAPI (Data Pipelines, AI Models & Microservices)
 - **Node.js Framework**: NestJS (Enterprise Microservices & REST APIs)
 - **Bases de Datos**: PostgreSQL & MongoDB
-- **DevOps & Cloud**: Docker, Kubernetes (k8s), AWS & GCP
+- **DevOps & Cloud**: Docker & DigitalOcean VPS
 
 ---
 
